@@ -1,0 +1,21 @@
+.orange {
+  color: orange;
+}
+
+.no_of_ratings {
+  padding-left: 10px;
+}
+
+.rating-container {
+  margin-top: 20px;
+  border-top: 2px solid purple;
+}
+
+.purple {
+  color: purple;
+}
+
+.rating-container .fa-star {
+	font-size: 1.8rem;
+	cursor: pointer;
+}
