@@ -1,6 +1,10 @@
 import React from "react";
 
 const MovieForm = ({ editedMovie }) => {
-  return <h1>{editedMovie && editedMovie.title} edit</h1>;
+  return (
+    <React.Fragment>
+      {editedMovie ? <h1>{editedMovie.title} edit</h1> : null}
+    </React.Fragment>
+  );
 };
 export default MovieForm;

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 import MovieList from "./components/movie-list/movie-list.component";
 import MovieDetails from "./components/movie-details/movie-details.components";
 import MovieForm from "./components/movie-form.jsx/movie-form.component";
+import "./App.css";
 
 const App = () => {
   const [movies, setMovies] = useState([]);
@@ -24,14 +24,17 @@ const App = () => {
 
   const ClickedMovieDetails = (movie) => {
     setSelectedMovie(movie);
+    setEditedMovie(null);
   };
 
-  const loadMovie = (movie) => {
-    setSelectedMovie(movie);
-  };
+  // const loadMovie = (movie) => {
+  //   setSelectedMovie(movie);
+  //   setEditedMovie(null);
+  // };
 
   const editMovie = (movie) => {
     setEditedMovie(movie);
+    setSelectedMovie(null);
   };
 
   return (
@@ -45,7 +48,10 @@ const App = () => {
           movieDetails={ClickedMovieDetails}
           editedMovie={editMovie}
         />
-        <MovieDetails selectedMovie={selectedMovie} updateMovie={loadMovie} />
+        <MovieDetails
+          selectedMovie={selectedMovie}
+          updateMovie={ClickedMovieDetails}
+        />
         <MovieForm editedMovie={editedMovie} />
       </div>
     </div>

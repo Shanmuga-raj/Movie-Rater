@@ -1,0 +1,17 @@
+.movie-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+}
+
+.movie-item svg {
+  margin: 27px 10px;
+  font-size: 1.2rem;
+}
+
+.fa-trash {
+  color: #EB5353;
+}
+
+.fa-pen-to-square {
+  color: #36AE7C;
+}
