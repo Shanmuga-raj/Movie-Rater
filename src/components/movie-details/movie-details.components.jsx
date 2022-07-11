@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import API from "../../api-service";
 import "./movie-details.styles.css";
 
 const MovieDetails = ({ selectedMovie, updateMovie }) => {
@@ -11,31 +12,13 @@ const MovieDetails = ({ selectedMovie, updateMovie }) => {
   };
 
   const rateClicked = (rating) => {
-    fetch(
-      `${process.env.REACT_APP_URL}/movies/${selectedMovie.id}/rate_movie/`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: process.env.REACT_APP_AUTHORIZATION,
-        },
-        body: JSON.stringify({ stars: rating + 1 }),
-      }
-    )
-      .then((resp) => resp.json())
+    API.rateMovie(selectedMovie.id, { stars: rating + 1 })
       .then(() => getDetails())
       .catch((error) => console.log(error));
   };
 
   const getDetails = () => {
-    fetch(`${process.env.REACT_APP_URL}/movies/${selectedMovie.id}/`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Token b59b6ffa5f32066976775c45f9dc623f8a403837",
-      },
-    })
-      .then((resp) => resp.json())
+    API.getMovieDetails(selectedMovie.id)
       .then((resp) => updateMovie(resp))
       .catch((error) => console.log(error));
   };

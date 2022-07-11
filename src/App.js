@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import MovieList from "./components/movie-list/movie-list.component";
 import MovieDetails from "./components/movie-details/movie-details.components";
 import MovieForm from "./components/movie-form.jsx/movie-form.component";
+import API from "./api-service";
 import "./App.css";
 
 const App = () => {
@@ -10,16 +11,7 @@ const App = () => {
   const [editedMovie, setEditedMovie] = useState(null);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_URL}/movies/`, {
-      method: "GET",
-      // headers: {
-      //   "Content-Type": "application/json",
-      //   Authorization: process.env.Authorization,
-      // },
-    })
-      .then((resp) => resp.json())
-      .then((resp) => setMovies(resp))
-      .catch((error) => console.log(error));
+    API.getMovies().then((resp) => setMovies(resp));
   }, []);
 
   const ClickedMovieDetails = (movie) => {
@@ -27,14 +19,19 @@ const App = () => {
     setEditedMovie(null);
   };
 
-  // const loadMovie = (movie) => {
-  //   setSelectedMovie(movie);
-  //   setEditedMovie(null);
-  // };
-
   const editMovie = (movie) => {
     setEditedMovie(movie);
     setSelectedMovie(null);
+  };
+
+  const updateList = (movie) => {
+    const newMovies = movies.map((mov) => {
+      if (mov.id === movie.id) {
+        return movie;
+      }
+      return mov;
+    });
+    setMovies(newMovies);
   };
 
   return (
@@ -52,7 +49,9 @@ const App = () => {
           selectedMovie={selectedMovie}
           updateMovie={ClickedMovieDetails}
         />
-        <MovieForm editedMovie={editedMovie} />
+        {editedMovie ? (
+          <MovieForm editedMovie={editedMovie} updateList={updateList} />
+        ) : null}
       </div>
     </div>
   );
