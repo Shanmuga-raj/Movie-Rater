@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API from "../../api-service";
 
-const MovieForm = ({ editedMovie, updateList }) => {
+const MovieForm = ({ editedMovie, updateList, newMovie }) => {
   const { id, title, description } = editedMovie;
 
   const [newTitle, setNewTitle] = useState("");
@@ -15,6 +15,12 @@ const MovieForm = ({ editedMovie, updateList }) => {
   const UpdateData = () => {
     API.updateMovie(id, { title: newTitle, description: newDescription }).then(
       (resp) => updateList(resp)
+    );
+  };
+
+  const CreateMovie = () => {
+    API.createMovie({ title: newTitle, description: newDescription }).then(
+      (resp) => newMovie(resp)
     );
   };
 
@@ -42,7 +48,11 @@ const MovieForm = ({ editedMovie, updateList }) => {
             onChange={(event) => setNewDescription(event.target.value)}
           ></textarea>
           <br />
-          <button onClick={UpdateData}>Update</button>
+          {id ? (
+            <button onClick={UpdateData}>Update</button>
+          ) : (
+            <button onClick={CreateMovie}>Create</button>
+          )}
         </div>
       ) : null}
     </React.Fragment>

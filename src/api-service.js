@@ -18,6 +18,17 @@ export default class API {
     }).then((resp) => resp.json());
   }
 
+  static createMovie(body) {
+    return fetch(`${URL}/movies/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: TOKEN,
+      },
+      body: JSON.stringify(body),
+    }).then((resp) => resp.json());
+  }
+
   static updateMovie(id, body) {
     return fetch(`${URL}/movies/${id}/`, {
       method: "PUT",
@@ -38,5 +49,15 @@ export default class API {
       },
       body: JSON.stringify(body),
     }).then((resp) => resp.json());
+  }
+
+  static deleteMovie(id) {
+    return fetch(`${URL}/movies/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: TOKEN,
+      },
+    })
   }
 }

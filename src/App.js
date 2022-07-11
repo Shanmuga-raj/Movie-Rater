@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import MovieList from "./components/movie-list/movie-list.component";
 import MovieDetails from "./components/movie-details/movie-details.components";
-import MovieForm from "./components/movie-form.jsx/movie-form.component";
+import MovieForm from "./components/movie-form/movie-form.component";
 import API from "./api-service";
 import "./App.css";
 
@@ -34,23 +34,46 @@ const App = () => {
     setMovies(newMovies);
   };
 
+  const newMovie = () => {
+    setEditedMovie({ title: "", description: "" });
+    setSelectedMovie(null);
+  };
+
+  const createNewMovie = (movie) => {
+    const newMovies = [...movies, movie];
+    setMovies(newMovies);
+  };
+
+  const deleteMovie = (movie) => {
+    const newMovies = movies.filter((mov) => mov.id !== movie.id);
+    setMovies(newMovies);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Movie rater</h1>
       </header>
       <div className="layout">
-        <MovieList
-          movies={movies}
-          movieDetails={ClickedMovieDetails}
-          editedMovie={editMovie}
-        />
+        <div>
+          <MovieList
+            movies={movies}
+            movieDetails={ClickedMovieDetails}
+            editMovie={editMovie}
+            deleteMovie={deleteMovie}
+          />
+          <button onClick={newMovie}>New Movie</button>
+        </div>
         <MovieDetails
           selectedMovie={selectedMovie}
           updateMovie={ClickedMovieDetails}
         />
         {editedMovie ? (
-          <MovieForm editedMovie={editedMovie} updateList={updateList} />
+          <MovieForm
+            editedMovie={editedMovie}
+            updateList={updateList}
+            newMovie={createNewMovie}
+          />
         ) : null}
       </div>
     </div>
