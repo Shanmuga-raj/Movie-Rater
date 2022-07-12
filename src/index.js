@@ -1,17 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import App from "./App";
+import Auth from "./components/auth/auth.component";
+import { CookiesProvider } from "react-cookie";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import reportWebVitals from "./reportWebVitals";
+import "./index.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const Router = () => {
+  return (
+    <React.StrictMode>
+      <CookiesProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Auth />} exact />
+            <Route path="/movies" element={<App />} exact />
+          </Routes>
+        </BrowserRouter>
+      </CookiesProvider>
+    </React.StrictMode>
+  );
+};
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<Router />);
+
 reportWebVitals();

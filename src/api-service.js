@@ -1,4 +1,5 @@
 const URL = process.env.REACT_APP_URL;
+const LOGIN_URL = process.env.REACT_APP_LOGIN_URL;
 const TOKEN = process.env.REACT_APP_AUTHORIZATION;
 
 export default class API {
@@ -58,6 +59,16 @@ export default class API {
         "Content-Type": "application/json",
         Authorization: TOKEN,
       },
-    })
+    });
+  }
+
+  static login(body) {
+    return fetch(`${LOGIN_URL}/auth/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }).then((resp) => resp.json());
   }
 }
