@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { useCookies } from "react-cookie";
 import API from "../../api-service";
 import "./movie-details.styles.css";
 
 const MovieDetails = ({ selectedMovie, updateMovie }) => {
   const [highlighted, setHighlighted] = useState(-1);
+  const [token] = useCookies(["auth"]);
 
   const highLightRate = (highlight) => {
     setHighlighted(highlight);
   };
 
   const rateClicked = (rating) => {
-    API.rateMovie(selectedMovie.id, { stars: rating + 1 })
+    API.rateMovie(selectedMovie.id, { stars: rating + 1 }, token)
       .then(() => getDetails())
       .catch((error) => console.log(error));
   };

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import API from "../../api-service";
+import { useCookies } from "react-cookie";
 
 const MovieForm = ({ editedMovie, updateList, newMovie }) => {
   const { id, title, description } = editedMovie;
 
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
+  const [token] = useCookies(["auth"]);
 
   useEffect(() => {
     setNewTitle(title);
@@ -13,15 +15,18 @@ const MovieForm = ({ editedMovie, updateList, newMovie }) => {
   }, [title, description]);
 
   const UpdateData = () => {
-    API.updateMovie(id, { title: newTitle, description: newDescription }).then(
-      (resp) => updateList(resp)
-    );
+    API.updateMovie(
+      id,
+      { title: newTitle, description: newDescription },
+      token
+    ).then((resp) => updateList(resp));
   };
 
   const CreateMovie = () => {
-    API.createMovie({ title: newTitle, description: newDescription }).then(
-      (resp) => newMovie(resp)
-    );
+    API.createMovie(
+      { title: newTitle, description: newDescription },
+      token
+    ).then((resp) => newMovie(resp));
   };
 
   return (

@@ -5,17 +5,16 @@ import { useCookies } from "react-cookie";
 const Auth = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const [token, setToken] = useCookies(["auth-token"]);
+  const [token, setToken] = useCookies(["auth"]);
 
   useEffect(() => {
     console.log(token);
-    if (token["auth-token"]) window.location.href = "/movies";
+    if (token["auth"]) window.location.href = "/movies";
   }, [token]);
 
   const loginClicked = () => {
     API.login({ username, password })
-      .then((resp) => setToken("auth-token", resp.token))
+      .then((resp) => setToken("auth", resp.token))
       .catch((error) => console.log(error));
   };
 
