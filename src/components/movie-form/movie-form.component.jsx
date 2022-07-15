@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API from "../../api-service";
 import { useCookies } from "react-cookie";
+import "./movie-form.styles.css";
 
 const MovieForm = ({ editedMovie, updateList, newMovie }) => {
   const { id, title, description } = editedMovie;
@@ -29,6 +30,8 @@ const MovieForm = ({ editedMovie, updateList, newMovie }) => {
     ).then((resp) => newMovie(resp));
   };
 
+  const isDisabled = newTitle.length === 0 || newDescription.length === 0;
+
   return (
     <React.Fragment>
       {editedMovie ? (
@@ -54,9 +57,21 @@ const MovieForm = ({ editedMovie, updateList, newMovie }) => {
           ></textarea>
           <br />
           {id ? (
-            <button onClick={UpdateData}>Update</button>
+            <button
+              className="form-button"
+              onClick={UpdateData}
+              disabled={isDisabled}
+            >
+              Update
+            </button>
           ) : (
-            <button onClick={CreateMovie}>Create</button>
+            <button
+              className="form-button"
+              onClick={CreateMovie}
+              disabled={isDisabled}
+            >
+              Create
+            </button>
           )}
         </div>
       ) : null}

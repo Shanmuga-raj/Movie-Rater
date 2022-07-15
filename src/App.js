@@ -14,7 +14,7 @@ const App = () => {
 
   useEffect(() => {
     API.getMovies(token).then((resp) => setMovies(resp));
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     if (!token["auth"]) window.location.href = "/";
@@ -68,7 +68,9 @@ const App = () => {
             editMovie={editMovie}
             deleteMovie={deleteMovie}
           />
-          <button onClick={newMovie}>New Movie</button>
+          <button className="form-button" onClick={newMovie}>
+            New Movie
+          </button>
         </div>
         <MovieDetails
           selectedMovie={selectedMovie}

@@ -1,0 +1,57 @@
+.App {
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #282c34;
+  color: #dff6ff;
+}
+
+.Auth-header {
+  text-align: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.auth-container {
+  width: 50%;
+  margin: 0 25%;
+}
+
+.auth-button {
+  border-radius: 8px;
+  text-align: center;
+  font-size: 20px;
+  padding: 5px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.auth-button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.auth-button span:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.auth-button:hover span {
+  padding-right: 25px;
+}
+
+.auth-button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+u {
+  color: inherit;
+  padding-left: 8px;
+  cursor: pointer;
+}
