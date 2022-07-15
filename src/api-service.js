@@ -1,19 +1,23 @@
 const URL = process.env.REACT_APP_URL;
 const LOGIN_URL = process.env.REACT_APP_LOGIN_URL;
-// const TOKEN = process.env.REACT_APP_AUTHORIZATION;
 
 export default class API {
-  static getMovies() {
+  static getMovies(token) {
     return fetch(`${URL}/movies/`, {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token["auth"]}`,
+      },
     }).then((resp) => resp.json());
   }
 
-  static getMovieDetails(id) {
+  static getMovieDetails(id, token) {
     return fetch(`${URL}/movies/${id}/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Token ${token["auth"]}`,
       },
     }).then((resp) => resp.json());
   }
@@ -63,6 +67,16 @@ export default class API {
 
   static login(body) {
     return fetch(`${LOGIN_URL}/auth/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }).then((resp) => resp.json());
+  }
+
+  static register(body) {
+    return fetch(`${LOGIN_URL}/api/users/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

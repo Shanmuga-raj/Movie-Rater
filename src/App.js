@@ -13,7 +13,7 @@ const App = () => {
   const [token] = useCookies(["auth"]);
 
   useEffect(() => {
-    API.getMovies().then((resp) => setMovies(resp));
+    API.getMovies(token).then((resp) => setMovies(resp));
   }, []);
 
   useEffect(() => {

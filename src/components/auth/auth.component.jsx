@@ -6,9 +6,9 @@ const Auth = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useCookies(["auth"]);
+  const [isLoginView, setIsLoginView] = useState(true);
 
   useEffect(() => {
-    console.log(token);
     if (token["auth"]) window.location.href = "/movies";
   }, [token]);
 
@@ -18,8 +18,15 @@ const Auth = () => {
       .catch((error) => console.log(error));
   };
 
+  const registerClicked = () => {
+    API.register({ username, password })
+      .then(() => loginClicked())
+      .catch((error) => console.log(error));
+  };
+
   return (
     <div>
+      {isLoginView ? <h1>Login</h1> : <h1>Register</h1>}
       <label htmlFor="username">Username</label>
       <br />
       <input
@@ -40,7 +47,23 @@ const Auth = () => {
         onChange={(event) => setPassword(event.target.value)}
       />
       <br />
-      <button onClick={loginClicked}>Login</button>
+      {isLoginView ? (
+        <button onClick={loginClicked}>Login</button>
+      ) : (
+        <button onClick={registerClicked}>Register</button>
+      )}
+
+      {isLoginView ? (
+        <p>
+          Don't have an account?
+          <span onClick={() => setIsLoginView(false)}>Register!</span>
+        </p>
+      ) : (
+        <p>
+          Already have an account?
+          <span onClick={() => setIsLoginView(true)}> Login!</span>
+        </p>
+      )}
     </div>
   );
 };

@@ -20,7 +20,7 @@ const MovieDetails = ({ selectedMovie, updateMovie }) => {
   };
 
   const getDetails = () => {
-    API.getMovieDetails(selectedMovie.id)
+    API.getMovieDetails(selectedMovie.id, token)
       .then((resp) => updateMovie(resp))
       .catch((error) => console.log(error));
   };
