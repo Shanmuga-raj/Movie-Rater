@@ -6,12 +6,13 @@ import "./auth.styles.css";
 const Auth = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useCookies(["auth"]);
+  const [token, setToken, removeToken] = useCookies(["auth"]);
   const [isLoginView, setIsLoginView] = useState(true);
 
   useEffect(() => {
     if (token["auth"]) window.location.href = "/movies";
-  }, [token]);
+    if (token["auth"] === 'undefined') {removeToken(["auth"])};
+  }, [token, removeToken]);
 
   const loginClicked = () => {
     API.login({ username, password })

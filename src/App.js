@@ -22,8 +22,9 @@ const App = () => {
   }, [data]);
 
   useEffect(() => {
+    if (token["auth"] === 'undefined') {removeToken(["auth"])};
     if (!token["auth"]) window.location.href = "/";
-  }, [token]);
+  }, [token, removeToken]);
 
   const ClickedMovieDetails = (movie) => {
     setSelectedMovie(movie);
