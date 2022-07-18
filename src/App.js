@@ -19,7 +19,6 @@ const App = () => {
 
   useEffect(() => {
     setMovies(data);
-    console.log(data);
   }, [data]);
 
   useEffect(() => {
